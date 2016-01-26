@@ -114,7 +114,7 @@ def convert():
     snapshot_grp = f.create_group("Snapshots")
     (nsnaps,snapshot_data) = load_snapshot(alistfile)
     #NSnap
-    snapshot_grp.attrs.create('NSnap', nsnaps, numpy.int32)
+    snapshot_grp.attrs.create('NSnap', numpy.int32(nsnaps), numpy.int32)
     #Snap
     snapshot_snap = snapshot_grp.create_dataset('Snap', data=snapshot_data)
 
