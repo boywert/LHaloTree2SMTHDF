@@ -85,7 +85,7 @@ def load_snapshot(alistfile):
     print a
     return (nsnaps,a)
 def convert():
-    ifile = 0
+    ifile = 100
     folder = "/lustre/scratch/astro/cs390/47Mpc/treedata/"
     lastsnap = 75
     alistfile = "/lustre/scratch/astro/cs390/47Mpc/snap.txt"
@@ -115,7 +115,7 @@ def convert():
     (nsnaps,snapshot_data) = load_snapshot(alistfile)
     #NSnap
     print numpy.int32(nsnaps)
-    snapshot_grp.attrs.create('NSnap', 76, numpy.int32)
+    snapshot_grp.attrs['NSnap'] = numpy.int32(nsnaps)
     #Snap
     snapshot_snap = snapshot_grp.create_dataset('Snap', data=snapshot_data)
 
@@ -124,11 +124,11 @@ def convert():
     verbose = 1
     (nTrees,nHalos,nTreeHalos,output_Halos,output_HaloIDs) = read_lgal_input_fulltrees_withids(folder,lastsnap,ifile,verbose)
     #TableFlag
-    mergertree_grp.attrs.create('TableFlag', 1, dtype=numpy.int32)
+    mergertree_grp.attrs['TableFlag'] = numpy.int32(1)
     #NTree
-    mergertree_grp.attrs.create('NTrees', numpy.int32(nTrees), dtype=numpy.int32)
+    mergertree_grp.attrs['NTrees'] = numpy.int32(nTrees)
     #NHalo
-    mergertree_grp.attrs.create('NHalos', numpy.int32(nHalos), dtype=numpy.int32)
+    mergertree_grp.attrs['NHalos'] numpy.int32(nHalos)
     #NHalosInTree
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
