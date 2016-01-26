@@ -81,7 +81,9 @@ def read_lgal_input_fulltrees_withids(folder,lastsnap,file,verbose):
 def load_snapshot(alistfile):
     a = numpy.loadtxt(alistfile)
     nsnaps = len(a)
-    return nsnaps,a
+    print nsnaps
+    print a
+    return (nsnaps,a)
 def convert():
     ifile = 0
     folder = "/lustre/scratch/astro/cs390/47Mpc/treedata/"
@@ -110,7 +112,7 @@ def convert():
     
     #Group -- Snapshot
     snapshot_grp = f.create_group("Snapshots")
-    nsnaps,snapshot_data = load_snapshot(alistfile)
+    (nsnaps,snapshot_data) = load_snapshot(alistfile)
     #NSnap
     snapshot_grp.attrs.create('NSnap', nsnaps, numpy.int32)
     #Snap
