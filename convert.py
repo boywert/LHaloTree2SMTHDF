@@ -128,7 +128,7 @@ def convert():
     #NTree
     mergertree_grp.attrs['NTrees'] = numpy.int32(nTrees)
     #NHalo
-    mergertree_grp.attrs['NHalos'] numpy.int32(nHalos)
+    mergertree_grp.attrs['NHalos'] = numpy.int32(nHalos)
     #NHalosInTree
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
