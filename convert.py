@@ -85,7 +85,7 @@ def load_snapshot(alistfile):
     print a
     return (nsnaps,a)
 def convert():
-    ifile = 100
+    ifile = 200
     folder = "/lustre/scratch/astro/cs390/47Mpc/treedata/"
     lastsnap = 75
     alistfile = "/lustre/scratch/astro/cs390/47Mpc/snap.txt"
