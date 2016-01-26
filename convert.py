@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import hashlib
+import h5py
 def hashfile(afile, hasher, blocksize=65536):
     buf = afile.read(blocksize)
     while len(buf) > 0:
