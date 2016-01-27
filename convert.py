@@ -4,6 +4,8 @@ import sys
 import time
 import hashlib
 import h5py
+import numpy.lib.recfunctions as rfn
+
 def hashfile(afile, hasher, blocksize=65536):
     buf = afile.read(blocksize)
     while len(buf) > 0:
@@ -42,12 +44,12 @@ struct_lgalinput = numpy.dtype([
 struct_lgaldbidsinput = numpy.dtype([
     ('HaloID',numpy.int64,1),
     ('FileTreeNr',numpy.int64,1),
-    ('FirstProgenitor',numpy.int64,1),
-    ('LastProgenitor',numpy.int64,1),
-    ('NextProgenitor',numpy.int64,1),
-    ('Descendant',numpy.int64,1),
-    ('FirstHaloInFOFgroup',numpy.int64,1),
-    ('NextHaloInFOFgroup',numpy.int64,1),
+    ('FirstProgenitorID',numpy.int64,1),
+    ('LastProgenitorID',numpy.int64,1),
+    ('NextProgenitorID',numpy.int64,1),
+    ('DescendantID',numpy.int64,1),
+    ('FirstHaloInFOFgroupID',numpy.int64,1),
+    ('NextHaloInFOFgroupID',numpy.int64,1),
     ('Redshift',numpy.float64,1),
     ('PeanoKey',numpy.int32,1),
     ('dummy',numpy.int32,1)
@@ -132,7 +134,9 @@ def convert():
     #NHalosInTree
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
-    nhalosintree_data = mergertree_grp.create_dataset('Halo', data=output_Halos)
+    halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
+    halo = rfn.drop_fields(combine,['dummy','PeanoKey'])
+    nhalosintree_data = mergertree_grp.create_dataset('Halo', data=halo)
 
 def main():
     convert()
