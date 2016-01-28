@@ -87,10 +87,10 @@ def load_snapshot(alistfile):
     print a
     return (nsnaps,a)
 def convert():
-    ifile = 127
-    folder = "/scratch/01937/cs390/data/treedata/"
-    lastsnap = 75
-    alistfile = "/scratch/01937/cs390/data/snap.txt"
+    ifile = 5
+    folder = "/lustre/scratch/astro/cs390/LGalaxies_Hen15_PublicRelease/MergerTrees/MR/treedata/"
+    lastsnap = 63
+    alistfile = "/lustre/scratch/astro/cs390/LGalaxies_Hen15_PublicRelease/input/zlists/zlist_MR.txt"
     f = h5py.File(folder+'/trees_'+str(ifile)+".hdf5", 'w')
     # Version
     f.attrs.create('Version', 0, dtype=numpy.int32)
