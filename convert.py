@@ -124,7 +124,9 @@ def convert():
     #Group -- MergerTrees
     mergertree_grp = f.create_group("MergerTrees")
     verbose = 1
+    print "Reading tree",ifile
     (nTrees,nHalos,nTreeHalos,output_Halos,output_HaloIDs) = read_lgal_input_fulltrees_withids(folder,lastsnap,ifile,verbose)
+    print "Done reading tree",ifile
     #TableFlag
     mergertree_grp.attrs['TableFlag'] = numpy.int32(1)
     #NTree
@@ -132,12 +134,16 @@ def convert():
     #NHalo
     mergertree_grp.attrs['NHalos'] = numpy.int32(nHalos)
     #NHalosInTree
+
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
+    print "Merging arrays"
     halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
+    print "Done merging arrays"
     #halo = rfn.drop_fields(halo,['dummy','PeanoKey'])
+    print "Outputting merger trees"
     nhalosintree_data = mergertree_grp.create_dataset('Halo', data=halo)
-
+    print "Done"
 def main():
     convert()
 if __name__ == "__main__":
