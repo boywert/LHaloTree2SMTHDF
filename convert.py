@@ -141,7 +141,7 @@ def convert():
     #halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
     halo = join_struct_arrays((output_Halos,output_HaloIDs))
     print "Done merging arrays"
-    #halo = rfn.drop_fields(halo,['dummy','PeanoKey'])
+    halo = rfn.drop_fields(halo,['dummy','PeanoKey'])
     print "Outputting merger trees"
     nhalosintree_data = mergertree_grp.create_dataset('Halo', data=halo)
     print "Done"
