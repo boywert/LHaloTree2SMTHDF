@@ -86,8 +86,7 @@ def load_snapshot(alistfile):
     print nsnaps
     print a
     return (nsnaps,a)
-def convert():
-    ifile = 5
+def convert(ifile):
     folder = "/lustre/scratch/astro/cs390/LGalaxies_Hen15_PublicRelease/MergerTrees/MR/treedata/"
     lastsnap = 63
     alistfile = "/lustre/scratch/astro/cs390/LGalaxies_Hen15_PublicRelease/input/zlists/zlist_MR.txt"
@@ -155,6 +154,7 @@ def join_struct_arrays(arrays):
     dtype = sum((a.dtype.descr for a in arrays), [])
     return joint.ravel().view(dtype)
 def main():
-    convert()
+    for i in range(512):
+        convert(i)
 if __name__ == "__main__":
     main()    
