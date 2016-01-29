@@ -138,7 +138,7 @@ def convert():
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
     print "Merging arrays"
-    halo = output_Halos #rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
+    halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
     print "Done merging arrays"
     #halo = rfn.drop_fields(halo,['dummy','PeanoKey'])
     print "Outputting merger trees"
