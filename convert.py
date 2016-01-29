@@ -138,12 +138,22 @@ def convert():
     nhalosintree_data = mergertree_grp.create_dataset('NHalosInTree', data=nTreeHalos.astype(numpy.int32))
     #Halo
     print "Merging arrays"
-    halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
+    #halo = rfn.merge_arrays((output_Halos,output_HaloIDs), flatten = True, usemask = False)
+    halo = join_struct_arrays((output_Halos,output_HaloIDs))
     print "Done merging arrays"
     #halo = rfn.drop_fields(halo,['dummy','PeanoKey'])
     print "Outputting merger trees"
     nhalosintree_data = mergertree_grp.create_dataset('Halo', data=halo)
     print "Done"
+def join_struct_arrays(arrays):
+    sizes = numpy.array([a.itemsize for a in arrays])
+    offsets = numpy.r_[0, sizes.cumsum()]
+    n = len(arrays[0])
+    joint = numpy.empty((n, offsets[-1]), dtype=numpy.uint8)
+    for a, size, offset in zip(arrays, sizes, offsets):
+        joint[:,offset:offset+size] = a.view(numpy.uint8).reshape(n,size)
+    dtype = sum((a.dtype.descr for a in arrays), [])
+    return joint.ravel().view(dtype)
 def main():
     convert()
 if __name__ == "__main__":
